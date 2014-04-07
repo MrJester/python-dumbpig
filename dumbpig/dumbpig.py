@@ -22,7 +22,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-__author__ = 'Ryan Hays ryan@oculussec.com'
+__author__ = 'Ryan Hays'
+__author_email__ = 'ryan@oculussec.com'
 __version__ = '0.0.1'
 __last_modification__ = '2014.04.07'
 
