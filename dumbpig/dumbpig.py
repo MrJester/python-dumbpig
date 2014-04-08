@@ -48,7 +48,7 @@ class RuleChecker(object):
         is_dumbpig_found = False
 
         # Regex used to find the Dumbpig Version
-        reg_ver = re.compile('DumbPig version ([0-9]*\.[0-9]*[^ ])* \-')
+        regex_version = re.compile('DumbPig version ([0-9]*\.[0-9]*[^ ])* \-')
         # Search the paths specified for the dumbpig script to ensure that we
         # have it installed
         for dumbpig_path in dumbpig_search_path:
@@ -65,7 +65,7 @@ class RuleChecker(object):
                                    ", ".join(dumbpig_search_path))
 
         dp_out = bytes.decode(proc_out.communicate()[0])
-        self._dumbpig_version = reg_ver.findall(dp_out)
+        self._dumbpig_version = regex_version.findall(dp_out)
 
         if self._dumbpig_version != '':
             is_dumbpig_found = True
@@ -79,7 +79,7 @@ class RuleChecker(object):
             Returns the version of DumbPig installed
         """
 
-        return self._dumbpig_version
+        return self._dumbpig_version[0]
 
     def set_rule_file(self, rule_path):
         """
@@ -127,6 +127,35 @@ class RuleChecker(object):
         """
 
         return self._dumbpig_output
+
+    def process_output(self):
+        """
+            Process the output results and parse out the data
+        """
+
+        if not self._dumbpig_output:
+            raise RuleCheckerError('No data to process. Run the test then '
+                                   'process results')
+        # Parses the output data with regex to split up each Issue
+        regex_issues = re.compile("Issue [1-999999999] \n(.*?)\n\=", re.DOTALL)
+        output_data = regex_issues.findall(self._dumbpig_output)
+
+        regex_problem = re.compile("(.*?)\n\nalert")
+        regex_fix = re.compile("\)\n(.*?)\n\n", re.DOTALL)
+        regex_rule = re.compile("[0-9] \n(alert.*)")
+        rule_num = 1
+        processed_data = {}
+        for stuff in output_data:
+            problem = regex_problem.findall(stuff)
+            fix = regex_fix.findall(stuff)
+            rule = regex_rule.findall(stuff)
+            fix = fix[0].replace('\n', '').replace(' - ', '/').replace('   ', '').split('- ')
+            fix.pop(0)
+            processed_data['result%s' % rule_num] = {'problem': problem[0], 'fix': fix, 'rule': rule[0]}
+            rule_num += 1
+
+        return processed_data
+
 
 class RuleCheckerError(Exception):
     """
