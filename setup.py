@@ -12,7 +12,6 @@ setup(
         author_email = dumbpig.__author_email__,
         license ='gpl-3.0.txt',
         url = 'https://github.com/MrJester/python-dumbpig',
-        download_url = 'https://github.com/peterldowns/mypackage/tarball/0.1', # I'll explain this in a second
-        keywords = ['dumbpig', 'snort', 'ids', 'ips', 'security'],
+        download_url = 'https://github.com/MrJester/python-dumbpig/tarball/0.0.1',
         classifiers = [],
     )
