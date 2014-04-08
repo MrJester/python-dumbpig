@@ -1,9 +1,10 @@
-import dumbpig
-
-dp = dumbpig.RuleChecker()
-print dp.get_dumbpig_version()
-#dp.set_rule_file('/Users/jester/Documents/et_rules/emerging-voip.rules')
-dp.set_rule_file('/Users/jester/Downloads/dumbpig-0.10/bad.rules')
-dp.test_rule_file()
-#print dp.print_output()
-dp.process_output()
+"""
+>>> import dumbpig
+>>> dp = dumbpig.RuleChecker()
+>>> print dp.get_dumbpig_version()
+0.2
+>>> dp.set_rule_file('bad.rules')
+>>> dp.test_rule_file()
+>>> print dp.json_output()
+{"result4": {"problem": "1 Problem(s) found with rule on line 8 of /Users/jester/Downloads/dumbpig-0.10/bad.rules", "fix": ["<ip.addr> ANY -> <ip.addr> ANY rule.You should really add port numbers into your rule. You are likely wasting huge chunks of processing effort on the wrong packets"], "rule": "alert tcp any any -> any any (msg: \"Any any -> any any rule\"; content: \"stuff\"; flow: to_server, established; sid:4; classtype: bad-unknown; rev:1)"}, "result2": {"problem": "2 Problem(s) found with rule on line 6 of /Users/jester/Downloads/dumbpig-0.10/bad.rules", "fix": ["No classification specified/Please add a classtype to add correct priority rating", "TCP, without flow. Considder adding flow to provide better state tracking on this TCP based rule"], "rule": "alert tcp any any -> any 80 (msg: \"fastpattern not\"; content:\"short1\"; content: \"short2\"; content: \"looooooong\"; http_uri; sid:2; rev:1)"}, "result3": {"problem": "2 Problem(s) found with rule on line 7 of /Users/jester/Downloads/dumbpig-0.10/bad.rules", "fix": ["No classification specified/Please add a classtype to add correct priority rating", "TCP, without flow. Considder adding flow to provide better state tracking on this TCP based rule"], "rule": "alert tcp any any -> any 80 (msg: \"fastpattern set\"; content:\"short1\"; content: \"short2\"; fast_pattern; content: \"looooooong\"; sid:3; rev:1)"}, "result1": {"problem": "2 Problem(s) found with rule on line 5 of /Users/jester/Downloads/dumbpig-0.10/bad.rules", "fix": ["IP rule with port number (or var that could be set to a port number). This is BAD and invalid syntax.It is likely that this rule head is not functioning as you expect it to. The IP protocol doesn't have port numbers.If you want to inspect both UDP and TCP traffic on specific ports use two rules, its faster and valid syntax.", "No classification specified/Please add a classtype to add correct priority rating"], "rule": "alert ip any any -> any 53 (msg: \"DNS lookup for foo.com using IP proto with port numbers\"; content:\"baddomain\"; sid:1; rev:1)"}}
+"""

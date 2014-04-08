@@ -30,6 +30,7 @@ __last_modification__ = '2014.04.07'
 import os
 import subprocess
 import re
+import json
 
 class RuleChecker(object):
     """
@@ -121,6 +122,10 @@ class RuleChecker(object):
         dp_output = bytes.decode(proc_out.communicate()[0])
         self._dumbpig_output = dp_output
 
+        zero_file = os.path.join(os.path.dirname(os.path.realpath(__file__)), '0')
+        if os.path.isfile(zero_file):
+            os.remove(zero_file)
+
     def print_output(self):
         """
             Prints the raw output to the screen
@@ -156,6 +161,16 @@ class RuleChecker(object):
 
         return processed_data
 
+    def json_output(self):
+        """
+            Outputs the results in JSON format
+        """
+        try:
+            json_data = json.dumps(self.process_output())
+        except:
+            raise RuleCheckerError('Error processing results in JSON format')
+
+        return json_data
 
 class RuleCheckerError(Exception):
     """
