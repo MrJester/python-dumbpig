@@ -27,10 +27,11 @@ __author_email__ = 'ryan@oculussec.com'
 __version__ = '0.0.1'
 __last_modification__ = '2014.04.07'
 
-import os
-import subprocess
-import re
 import json
+import os
+import re
+import subprocess
+import sys
 
 class RuleChecker(object):
     """
@@ -122,7 +123,7 @@ class RuleChecker(object):
         dp_output = bytes.decode(proc_out.communicate()[0])
         self._dumbpig_output = dp_output
 
-        zero_file = os.path.join(os.path.dirname(os.path.realpath(__file__)), '0')
+        zero_file = os.path.join(os.path.dirname(sys.argv[0]), '0')
         if os.path.isfile(zero_file):
             os.remove(zero_file)
 
