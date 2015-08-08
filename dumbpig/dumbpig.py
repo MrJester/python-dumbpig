@@ -143,7 +143,7 @@ class RuleChecker(object):
             raise RuleCheckerError('No data to process. Run the test then '
                                    'process results')
         # Parses the output data with regex to split up each Issue
-        regex_issues = re.compile("Issue [1-999999999] \n(.*?)\n\=", re.DOTALL)
+        regex_issues = re.compile("Issue [1-9][0-9]* \n(.*?)\n\=", re.DOTALL)
         output_data = regex_issues.findall(self._dumbpig_output)
 
         regex_problem = re.compile("(.*?)\n\nalert")
