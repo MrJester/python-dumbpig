@@ -23,9 +23,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 __author__ = 'Ryan Hays'
-__author_email__ = 'ryan@oculussec.com'
-__version__ = '0.0.1'
-__last_modification__ = '2014.04.07'
+__author_email__ = 'hays.ryan@gmail.com'
+__author_twitter__ = '@_ryanhays'
+__version__ = '0.0.2'
+__last_modification__ = '2021.04.25'
 
 import json
 import os
